@@ -1,0 +1,37 @@
+新建目录
+放入源码
+创建CMakeLists.txt
+使用VSCode打开目录
+CTRL+SHIFT+P通过CMakeLists配置项目
+通过左边栏切换到CMake配置 在目标上设为生成目标 设为启动/调试目标
+通过VSCode的状态栏配置编译器 输出选项
+F7编译
+CTRL+F5运行
+
+以上是Windows环境
+这里是Linux环境:https://blog.csdn.net/qq_37264323/article/details/109898929
+详见官方文档https://cmake.org/documentation
+常用的CMake Command:
+cmake_minimum_required (VERSION 3.4)
+project( GxBaseSolution )
+
+add_definitions(-DFOO -DBAR ...)									// Adds -D define flags to the compilation of source files
+add_executable(EASTLBenchmarks ${EASTLBENCHMARK_SOURCES} xxx)		// 可执行文件 源码
+
+add_subdirectory(../test/packages/EAStdC ../test/EAStdC)			// 添加当前目录的子目录(子目录也包含CMakeLists.txt)
+add_test(EASTLBenchmarkRuns EASTLBenchmarks)						// 在项目根目录下的CMakeLists.txt添加enable_testing() 可以开启项目的测试功能
+aux_source_directory(. DIR_MAIN)									// 把当前目录的所有源码 定义为DIR_MAIN
+
+find_package(Threads REQUIRED)										//
+
+include(<file|module> [OPTIONAL] [RESULT_VARIABLE <VAR>] [NO_POLICY_SCOPE])						//Load and run CMake code from a file or module.
+include_directories(source)											//
+
+message(FATAL_ERROR " MinSizeRel fails to link.")					//
+
+set (CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -g" xxx xxx)				// 类似于宏的#define A fun(A)
+set_tests_properties(BenchmarkRuns PROPERTIES REGULAR "CODE=0")		//
+
+target_include_directories(EASTL PUBLIC include)					//
+target_link_libraries(Benchmarks ${EA_Lib} Threads::Threads)		//
+target_sources(GxBase PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Code.cpp)	//
